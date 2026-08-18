@@ -1,4 +1,4 @@
-<img width="1259" height="544" alt="зображення" src="https://github.com/user-attachments/assets/d830478d-9d07-40f1-8dd0-60507b213d30" />### **Досвід розробки аналітичних рішень у Power BI**
+### **Досвід розробки аналітичних рішень у Power BI**
 ---
 
 #### **1. Retail Performance & Inventory Strategy Dashboard**
