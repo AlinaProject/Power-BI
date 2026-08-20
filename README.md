@@ -18,7 +18,7 @@ Semantic Model: Power BI / Star Schema
 Analytics: DAX  
 Reporting period: 2022–2023   
 
-**2. Solution Architecture**
+## 2. Solution Architecture
 
 CSV Sources → Power Query → Data Cleansing & Transformation → Star Schema → Semantic Model → DAX Measures → Report Layer → Business Insights & Decisions
 
