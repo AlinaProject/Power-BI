@@ -3,6 +3,7 @@
 **1. Project Overview**
 Objective: building an interactive BI solution for monitoring financial and operational business performance at the Business → Product → Store → City level.
 Business goals
+
     - monitor Revenue, Profit and Margin;
     - identify profitability drivers and risks;
     - evaluate Product Portfolio performance;
@@ -15,9 +16,11 @@ Analytics: DAX
 Reporting period: 2022–2023
 
 **2. Solution Architecture**
+
 CSV Sources → Power Query → Data Cleansing & Transformation → Star Schema → Semantic Model → DAX Measures → Report Layer → Business Insights & Decisions
 
 Design principles
+
     * separation of Fact / Dimension;
     * single source of truth for KPIs;
     * explicit DAX measures;
