@@ -1,19 +1,22 @@
 ### Business Performance Analytics — Power BI
 
-**1. Project Overview**
-Objective: building an interactive BI solution for monitoring financial and operational business performance at the Business → Product → Store → City level.
-Business goals
+## 1. Project Overview
 
-    - monitor Revenue, Profit and Margin;
-    - identify profitability drivers and risks;
-    - evaluate Product Portfolio performance;
-    - identify underperforming cities and stores;
-    - support portfolio and operational decisions.
-Source: CSV files
-Transformation: Power Query
-Semantic Model: Power BI / Star Schema
-Analytics: DAX
-Reporting period: 2022–2023
+**Objective:** building an interactive BI solution for monitoring financial and operational business performance at the Business → Product → Store → City level.
+
+### Business goals
+
+- monitor Revenue, Profit and Margin;
+- identify profitability drivers and risks;
+- evaluate Product Portfolio performance;
+- identify underperforming cities and stores;
+- support portfolio and operational decisions.
+
+Source: CSV files  
+Transformation: Power Query  
+Semantic Model: Power BI / Star Schema  
+Analytics: DAX  
+Reporting period: 2022–2023   
 
 **2. Solution Architecture**
 
