@@ -35,73 +35,84 @@ CSV Sources → Power Query → Data Cleansing & Transformation → Star Schema 
 
 ## 3. Data Model
 
-Fact - FactSales
-Grain: one row = one sales transaction
+**Fact - FactSales**  
+Grain: one row = one sales transaction  
 Main metrics:
-    - Revenue
-    - Profit
-    - Margin
-    - Transactions
-Dimensions
-DimCalendarDax
-    - Date
-    - Year
-    - Quarters
-    - Seasons
-    - Month
-    - Month Number
-    - Weekday
-DimProducts
-    - Product ID
-    - Product Category
-    - Product Group
-    - Price Segment
-    - Product Cost
-    - Product Price
-DimStores
-    - Store ID
-    - Store Name
-    - Store Location
-    - Store Open Date 
+- Revenue
+- Profit
+- Margin
+- Transactions
 
-Relationships
-DimCalendarDax  1 ───── * FactSales
-DimProducts  1 ───── * FactSales
-DimStores     1 ───── * FactSales
-Filter direction: Dimension → Fact.
+**Dimensions**
+
+**DimCalendarDax**
+- Date
+- Year
+- Quarters
+- Seasons
+- Month
+- Month Number
+- Weekday
+
+**DimProducts**
+- Product ID
+- Product Category
+- Product Group
+- Price Segment
+- Product Cost
+- Product Price
+
+**DimStores**
+- Store ID
+- Store Name
+- Store Location
+- Store Open Date
+
+**Relationships**
+- DimCalendarDax 1 ───── * FactSales
+- DimProducts 1 ───── * FactSales
+- DimStores 1 ───── * FactSales
+
+Filter direction: Dimension → Fact.   
 
 ## 4. Data Preparation
 
 CSV data passes through Power Query.
-Transformation layer
-    - data type standardization;
-    - null / blank handling;
-    - duplicate validation;
-    - text normalization;
-    - key validation;
-    - dimension preparation;
-    - derived business attributes;
-    - date preparation.
-Principle: business logic required for reusable analysis is implemented in the semantic model, not duplicated across visuals.
+
+**Transformation layer:**
+- data type standardization;
+- null / blank handling;
+- duplicate validation;
+- text normalization;
+- key validation;
+- dimension preparation;
+- derived business attributes;
+- date preparation.
+
+**Principle:** business logic required for reusable analysis is implemented in the semantic model, not duplicated across visuals.
 
 ## 5. KPI Framework
 
-KPI	Definition
-Revenue	Total sales value
-Profit	Total profit
-Margin %	Profit / Revenue
-Transactions	Number of transactions
-Revenue YoY %	Revenue growth vs LY
-Revenue MoM %	Revenue growth vs previous month
-Profit YoY %	Profit growth vs LY
-Profit Contribution %	Share of total Profit
-Revenue Contribution %	Share of total Revenue
-Current snapshot
-KPI	Value	YoY
-Revenue	$658,194	+12.3%
-Profit	$180,445	+8.4%
-Margin	27.42%	-1.0%
-Transactions	41,830	+26.9%
+| KPI | Definition |
+| :--- | :--- |
+| **Revenue** | Total sales value |
+| **Profit** | Total profit |
+| **Margin %** | Profit / Revenue |
+| **Transactions** | Number of transactions |
+| **Revenue YoY %** | Revenue growth vs LY |
+| **Revenue MoM %** | Revenue growth vs previous month |
+| **Profit YoY %** | Profit growth vs LY |
+| **Profit Contribution %** | Share of total Profit |
+| **Revenue Contribution %** | Share of total Revenue |
+
+### Current snapshot
+
+| KPI | Value | YoY |
+| :--- | :--- | :--- |
+| **Revenue** | $658,194 | +12.3% |
+| **Profit** | $180,445 | +8.4% |
+| **Margin** | 27.42% | -1.0% |
+| **Transactions** | 41,830 | +26.9% |   
 
 ## 6. Report Architecture
 
