@@ -22,16 +22,16 @@ Reporting period: 2022–2023
 
 CSV Sources → Power Query → Data Cleansing & Transformation → Star Schema → Semantic Model → DAX Measures → Report Layer → Business Insights & Decisions
 
-Design principles
+### Design principles
 
-    - separation of Fact / Dimension;
-    - single source of truth for KPIs;
-    - explicit DAX measures;
-    - centralized Date dimension;
-    - controlled filter propagation;
-    - reusable business logic;
-    - minimal calculated columns;
-    - report layer separated from data/model layer.
+- separation of Fact / Dimension;
+- single source of truth for KPIs;
+- explicit DAX measures;
+- centralized Date dimension;
+- controlled filter propagation;
+- reusable business logic;
+- minimal calculated columns;
+- report layer separated from data/model layer.    
 
 ## 3. Data Model
 
