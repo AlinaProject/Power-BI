@@ -1,185 +1,269 @@
-### **Досвід розробки аналітичних рішень у Power BI**
----
+### Business Performance Analytics — Power BI
 
-#### **1. Retail Performance & Inventory Strategy Dashboard**
-**Мета:** цей інтерактивний аналітичний комплекс розроблений для топменеджменту та операційних керівників з метою переходу від простого моніторингу цифр до прийняття рішень на основі даних. Дашборд інтегрує фінансові показники, аналіз товарного портфеля та операційну ефективність складів, дозволяючи ідентифікувати зони втрати прибутку та можливості для масштабування.
+**1. Project Overview**
+Objective: building an interactive BI solution for monitoring financial and operational business performance at the Business → Product → Store → City level.
+Business goals
+    • monitor Revenue, Profit and Margin;
+    • identify profitability drivers and risks;
+    • evaluate Product Portfolio performance;
+    • identify underperforming cities and stores;
+    • support portfolio and operational decisions.
+Source: CSV files
+Transformation: Power Query
+Semantic Model: Power BI / Star Schema
+Analytics: DAX
+Reporting period: 2022–2023
 
-### Business Performance (Стратегічний рівень)
-Центральна панель для оцінки загального «здоров’я» бізнесу.
+**2. Solution Architecture**
+CSV Sources
+    ↓
+Power Query
+    ↓
+Data Cleansing & Transformation
+    ↓
+Star Schema
+    ↓
+Semantic Model
+    ↓
+DAX Measures
+    ↓
+Report Layer
+    ↓
+Business Insights & Decisions
+
+Design principles
+    • separation of Fact / Dimension;
+    • single source of truth for KPIs;
+    • explicit DAX measures;
+    • centralized Date dimension;
+    • controlled filter propagation;
+    • reusable business logic;
+    • minimal calculated columns;
+    • report layer separated from data/model layer.
+
+**3. Data Model**
+Fact - FactSales
+Grain: one row = one sales transaction
+Main metrics:
+    • Revenue
+    • Profit
+    • Margin
+    • Transactions
+Dimensions
+DimCalendarDax
+    • Date
+    • Year
+    • Quarters
+    • Seasons
+    • Month
+    • Month Number
+    • Weekday
+DimProducts
+    • Product ID
+    • Product Category
+    • Product Group
+    • Price Segment
+    • Product Cost
+    • Product Price
+DimStores
+    • Store ID
+    • Store Name
+    • Store Location
+    • Store Open Date 
+
+Relationships
+DimCalendarDax  1 ───── * FactSales
+DimProducts  1 ───── * FactSales
+DimStores     1 ───── * FactSales
+Filter direction: Dimension → Fact.
+
+**4. Data Preparation**
+CSV data passes through Power Query.
+Transformation layer
+    • data type standardization;
+    • null / blank handling;
+    • duplicate validation;
+    • text normalization;
+    • key validation;
+    • dimension preparation;
+    • derived business attributes;
+    • date preparation.
+Principle: business logic required for reusable analysis is implemented in the semantic model, not duplicated across visuals.
+
+**5. KPI Framework**
+KPI	Definition
+Revenue	Total sales value
+Profit	Total profit
+Margin %	Profit / Revenue
+Transactions	Number of transactions
+Revenue YoY %	Revenue growth vs LY
+Revenue MoM %	Revenue growth vs previous month
+Profit YoY %	Profit growth vs LY
+Profit Contribution %	Share of total Profit
+Revenue Contribution %	Share of total Revenue
+Current snapshot
+KPI	Value	YoY
+Revenue	$658,194	+12.3%
+Profit	$180,445	+8.4%
+Margin	27.42%	-1.0%
+Transactions	41,830	+26.9%
+
+**6. Report Architecture**
+Dashboard built on the principle progressive analysis:
+01 Overall
+    ↓
+Business performance
+    ↓
+02 Product
+    ↓
+Portfolio drivers
+    ↓
+03 Inventory
+    ↓
+Operational analysis
+
+**7. Business Performance**
+Purpose: executive monitoring of overall business performance.
+Analytical focus
+    • Revenue trend;
+    • Profitability;
+    • Margin;
+    • Transactions;
+    • City performance;
+    • Store contribution;
+    • Category contribution.
+Key visuals
+    • KPI cards;
+    • Smart Insights: a dynamic bar is implemented at the top of the page, which immediately highlights anomalies;
+    • Business Health Index is an integral indicator from 0 to 100 points that assesses the overall health of the business in four areas: Profitability (how profitable the business is), Network Stability (how evenly distributed the business is between stores), Portfolio Quality (what part of the profit is formed by products with a higher margin), Inventory Health (how free the stock is from dead stock);
+    • Trend by selected metric (revenue, profit, margin, number of transactions);
+    • City Profitability & Risk — the matrix that ranks cities by their profit contribution and risks.;
+    • Top / Bottom Stores by selected metric;
+    • Selected metric by Product Category;
+    • Cities Underperformance vs Median Margin — the histogram of deviations from the median margin that clearly indicates problem locations.
+   
+Key finding
+Revenue demonstrates positive YoY growth, while Margin remains under pressure.
+Business implication: Revenue growth should be evaluated together with profitability rather than as an isolated KPI.
 
 <img width="1270" height="709" alt="зображення" src="https://github.com/user-attachments/assets/64426a34-7394-4d4f-af69-7f847209fb87" />
 
-*   Smart Insights: вгорі сторінки реалізовано динамічний рядок, який відразу підсвічує аномалії.
-*   Business Health Index (92.04) - це інтегральний показник від 0 до 100 балів, який оцінює загальний стан бізнесу за чотирма напрямами: Profitability (наскільки бізнес прибутковий), Network Stability (наскільки рівномірно розподілений бізнес між магазинами), Portfolio Quality (яку частину прибутку формують товари з вищою маржею), Inventory Health (наскільки запас вільний від dead stock).
-*   Візуали (тренд, топ/боттом магазини, у розрізі категорій) перебудовуються відповідно до обраної метрики (виручка, прибуток, маржа, к-ть транзакцій).
-*   Факторний аналіз прибутковості:**
-    *   City Profitability & Risk: Матриця, що класифікує міста за внеском у прибуток та ризиками.
-    *   Cities Underperformance: гістограма відхилень від медіанної маржі, яка чітко вказує на проблемні локації.
-*   Категорійний розріз: Візуалізація показує, що категорія Electronics має найвищу маржу (40%), тоді як Toys є найменш прибутковою (20%).
+**8. Product Performance**
+Purpose: evaluate product portfolio contribution, profitability and momentum.
+Analytical dimensions
+    • Product Group;
+    • Product;
+    • Category;
+    • Price Segment.
+Key visuals
+    • Portfolio Quality: A measure of the quality of your product portfolio that helps identify profit concentration;
+    • Selected metric by Product Group;
+    • Product Portfolio Matrix, that divides products into quadrants to help prioritize marketing budgets;
+    • Selected metric by Price Segment;
+    • Category Performance Momentum is designed to monitor the growth or decline of each product category. It uses a color-coding system to display the share of products in different states: Declining (red), Growing (green), and Stable (yellow);
+       • Product Trend Matrix (Drill-down): the detailed table of the product lifecycle. It uses the Growing, Declining, and Stable states to track margin and revenue dynamics in real time. This allows you to identify which products are losing relevance and which are becoming new growth drivers.
+    • Top / Bottom Products by selected metric.
 
-### Product Performance & Trend Analysis (Тактичний рівень)
+Key findings
+    • High-margin products generate 65% of Profit.
+    • Top 5 products generate 41% of Profit.
+    • Art & Crafts is among the leading portfolio contributors.
+    • Revenue is concentrated in Low and Middle price segments.
+Business implication
+Portfolio decisions should be based on Margin + Profit Contribution + Growth, rather than Revenue alone.
 
 <img width="1276" height="709" alt="зображення" src="https://github.com/user-attachments/assets/4ba13355-85db-435b-9ee1-01247ba4c2f5" />
 
-*   Portfolio Quality: показник якості товарного наповнення, що допомагає виявити концентрацію прибутку.
-*   Product Portfolio Performance: матриця, що розділяє товари на квадранти, допомагаючи пріоритезувати маркетингові бюджети.
-*   Category Performance Momentum призначений для моніторингу динаміки росту або падіння кожної товарної категорії. Він використовує систему кольорового кодування для відображення частки товарів у різних станах: Declining (червоний), Growing (зелений) та Stable (жовтий)
-*   Product Trend Matrix (Drill-down): детальна таблиця життєвого циклу товарів. Вона використовує статуси Growing, Declining та Stable, щоб відстежувати динаміку маржі та виторгу в реальному часі. Це дозволяє виявити, які товари втрачають актуальність, а які стають новими драйверами росту.
-  
 <img width="1259" height="544" alt="зображення" src="https://github.com/user-attachments/assets/52045e30-cc12-4779-bb49-19fd05d09604" />
 
-###  Inventory Performance (Операційний рівень)
-Аналіз ефективності використання капіталу та мінімізація втрат.
+**9. Inventory**
+Purpose: provide operational visibility into inventory performance and identify potential stock-related risks.
+Analytical focus
+    • inventory distribution;
+    • stock availability;
+    • product/category performance;
+    • store-level inventory;
+    • potential overstock / stockout areas.
+
+Key metrics:
+    • Inventory Value: total capital tied up in inventory;
+    • Units in Stock: physical number of units in stock;
+    • Stockout Rate: the most critical metric that shows that more than half of your inventory is currently unavailable to customers;
+    • Revenue at Stockout Risk: the amount of revenue a company loses every day due to out-of-stock items.
+
+Key visuals
+    • KPI cards;
+    • Smart Insights: a dynamic bar is implemented at the top of the page, which immediately highlights anomalies;
+    • Selected metric (Inventory Value, Units in Stock, Stockout Rate, Revenue at Stockout Risk) by Product Group: a histogram shows the cost and percentage of shortages.
+    • City Stockout Rate: visualization of priorities for replenishment of stocks.
+    • Inventory Efficiency Portfolio divides products into 4 business quadrants:
+       Strategic Stock (Top Right): Products with high revenue and sufficient supply. This is the basis of your profit.
+       Critical Risk (Bottom Right): Items that generate a lot of money but have critically low inventory. This is the #1 priority for the purchasing department.
+       Niche (Bottom Left): Items with low sales and low balances that do not require much attention.
+       Overstock (Top Left): Items with high balances that are not selling well (frozen funds)
+    • Top Revenue at Stockout Risk: a list of specific driver products that need to be purchased immediately;
+    • Store Inventory Performance Detail allows to see the status of each item in a specific store.
 
 <img width="1268" height="713" alt="зображення" src="https://github.com/user-attachments/assets/3eaa3304-bc2d-4ac4-8e99-4ba12ca268de" />
 
-* Ключові метрики:
-   Inventory Value: загальний капітал, заморожений у товарах.
-   Units in Stock: фізична кількість одиниць на складі.
-   Stockout Rate: найкритичніший показник, який демонструє, що понад половина вашого асортименту наразі недоступна для покупців.
-   Revenue at Stockout Risk: обсяг виторгу, який компанія втрачає щодня через відсутність товарів.
+**10. Data Quality & Reconciliation**
+Checked before publication:
+Source → Model
+    • record count;
+    • Revenue;
+    • Profit;
+    • transaction count;
+    • unique Product;
+    • unique Store;
+    • unique City.
+Model → Report
+    • KPI reconciliation;
+    • filter context;
+    • totals vs detail;
+    • YoY / MoM calculations;
+    • Top N / Bottom N;
+    • drill-down consistency.
+Integrity checks
+    • orphan keys;
+    • duplicates;
+    • missing dimensions;
+    • invalid dates;
+    • unexpected negative values;
+    • incorrect data types.
 
-* Аналіз розподілу та ризиків по категоріях і локаціях. Цей блок дозволяє зрозуміти, «де саме» ми втрачаємо гроші:
-   * By Product Group (Compare contribution): гістограма показує вартість та відсоток дефіциту. 
-   *  City Stockout Rate: візуалізація пріоритетів для поповнення запасів.
-   *  Top Revenue at Stockout Risk: список конкретних товарів-драйверів, які потрібно закупити негайно.
-     
-* Inventory Efficiency Portfolio розділяє товари на 4 бізнес-квадранти:
-    Strategic Stock (Верхній правий): Товари з високим виторгом і достатнім забезпеченням. Це база вашого прибутку.
-    Critical Risk (Нижній правий): Товари, що генерують багато грошей, але мають критично низький запас. Це пріоритет №1 для відділу закупівель.
-    Niche (Нижній лівий): Товари з низьким виторгом і низькими залишками, які не потребують значної уваги.
-    Overstock (Верхній лівий): Товари з великими залишками, які погано продаються (заморожені кошти).
+**11. Performance & Maintainability**
+To support productivity:
+• Star Schema is used;
+• dimension tables are separated from transaction data;
+• measures are centralized;
+• unnecessary calculated columns are minimized;
+• high-cardinality fields are not used unnecessarily;
+• complex calculations are not duplicated between visuals.
+Maintainability
+Business logic is placed in:
+Power Query
+    → transformation logic
 
-* Store Inventory Performance Detail дозволяє побачити статус по кожній позиції в конкретному магазині (наприклад, Store_ID 7 або 41).
+Semantic Model
+    → relationships / dimensions
 
+DAX
+    → calculations / KPIs
 
+Report
+    → visualization / interaction
+This allows you to change the calculation logic without rebuilding the entire report layer.
 
-  
+**12. Key Business Insights**
+1. Revenue grows faster than Profit, indicating potential pressure on profitability.
+2. Business has measurable dependency on a limited number of products.
+3. High-margin products 
+65% of Profit
+Margin protection is strategically important for overall profitability.
+4. Portfolio Matrix identifies products requiring: Invest → Protect → Grow → Review
 
-#### **2. Executive Performance Dashboard**
-**Мета:** Цей інтерактивний дашборд розроблений для топменеджменту з метою моніторингу KPI, аналізу прибутковості та виявлення факторів, що впливають на фінансовий результат компанії. Інструмент дозволяє переходити від загальних цифр до детального аудиту окремих транзакцій.
-
-Сторінка **Executive Summary** є центральною панеллю управління, яка забезпечує стратегічний огляд стану бізнесу та дозволяє миттєво оцінити KPI:
-1. Панель ключових показників (KPI) та інтерактивність
-   На сторінці представлено чотири основні метрики:
-    - Total Revenue: $2,30M (динаміка -29,2%).
-    - Gross Profit: $286K (ріст +4,5%).
-    - Margin, %: 12,5% (ріст +62,4%).
-    - Active Customer Base: 793 (ріст +58,8%).
-
-<img width="1177" height="659" alt="зображення" src="https://github.com/user-attachments/assets/c13b5206-4fcd-4945-87a0-ed6eeb617914" />
-
-При натисканні на будь-яку KPI-картку всі графіки на сторінці автоматично перебудовуються, відображаючи дані саме для обраної метрики. Спарклайни (міні-графіки) на самих картках демонструють динаміку тільки за поточний рік.
-
-2. Аналіз глобальних трендів та Drill-down
-   * Центральний візуал відображає дані за всі доступні роки, що дозволяє відстежувати довгострокову динаміку.
-   * Контекстні підказки (Tooltips): При наведенні на графік тренду з’являється розширена підказка, яка показує розподіл прибутку за регіонами та сегментами, а також список топ-3 клієнтів за маржею та категорію товарів, які вони купують найчастіше.
-
-<img width="693" height="479" alt="зображення" src="https://github.com/user-attachments/assets/704d854f-f1f1-49e2-a6d9-de874963b0c2" />
-
-   * Деталізація до транзакцій: у верхньому правому куті візуала розташована кнопка, яка відкриває Financial Performance Matrix. У цій матриці можна розгорнути дані від року до конкретної дати замовлення та назви продукту.
-
-<img width="1177" height="660" alt="зображення" src="https://github.com/user-attachments/assets/14df8f5b-65ce-46f6-aa48-6f3d4c113d1f" />
-
-3. Регіональна ефективність та факторний аналіз
-   * Топ-5 міст: гістограма показує міста з найбільшим внеском у обраний показник. Наприклад, п'ять ключових міст забезпечують 53,2% валового прибутку. Тултіп на цьому графіку відображає динаміку показника за днями тижня, допомагаючи виявити патерни активності клієнтів.
-     
- <img width="583" height="607" alt="зображення" src="https://github.com/user-attachments/assets/8d155825-0fe4-40c5-88da-68a7d04c9b10" />
-
-   * Waterfall Chart (факторний аналіз): наочно демонструє, які чинники вплинули на зміну прибутку порівняно з минулим роком. Зокрема, візуалізовано критичний інсайт: зниження ціни призвело до втрати 48% прибутку (-$39 424).
-
-4. Розумна навігація та рекомендації
-   * Smart Titles: під головним заголовком відображається динамічний текст, який описує всі застосовані фільтри (Дата, Сегмент, Категорія, Регіон). Наприклад, "East Performance in 2015 Category - Office Supplies", що виключає помилки в інтерпретації даних при застосуванні декількох фільтрів одночасно.
-   * Стратегічний блок: Натискання на кнопку «інформація» (i) відкриває вікно з конкретними рекомендаціями (наприклад, фокус на високоприбуткових регіонах Заходу та Сходу або оптимізація асортименту в збиткових містах, таких як Х'юстон чи Філадельфія).
-     
-5. Стратегічні рекомендації. Через кнопку «Information» (i) доступний перелік дій для покращення показників:
-    * Фокус на регіонах: Концентрувати інвестиції на Заході та Сході (Каліфорнія, Нью-Йорк, Вашингтон).
-    * Оптимізація присутності: Скоротити діяльність у збиткових містах (Х'юстон, Сан-Антоніо, Філадельфія).
-    * Розвиток категорій: Розширювати асортимент категорій Technology та Office Supplies (копіри, телефони, аксесуари).
-    * Сегментація: Пріоритет на сегмент Consumer, який є найбільш прибутковим
-    
-Сторінка **Margin & Profitability** є спеціалізованим розділом дашборду, призначеним для глибокого аналізу фінансової ефективності та виявлення зон втрати прибутку. 
-1. Панель ключових показників (KPI Cards)
-У верхній частині сторінки розташовані чотири основні метрики, які дають швидку оцінку поточної ситуації:
-    - Margin Leakage (Loss): відображає втрати маржі, з негативною динамікою -80.9%.
-    - Revenue per Customer: Середній дохід на одного клієнта (2.90K), що зріс на 52.3%.
-    - Avg Order Value: Середня вартість замовлення ($458,61).
-    - Unprofitable Orders: Кількість збиткових замовлень (1318), яка зросла на 59.2%.
-На відміну від головної сторінки, спарклайни на цих картках відображають тренд за всі доступні роки.
-
-<img width="1177" height="660" alt="зображення" src="https://github.com/user-attachments/assets/b20b986d-37a0-4101-80b7-be06c193b9fb" />
-
-2. Product Portfolio Matrix. Цей візуал у формі діаграми розсіювання (scatter plot) аналізує підкатегорії товарів за двома осями: загальний дохід (Total Revenue) та рівень маржі (Margin).
-   * Контекстні підказки (Tooltips): При наведенні на точку (підкатегорію) відображається детальна інформація: обсяг продажів у грошах та одиницях, рівень маржі та назва квадранта (наприклад, "Volume Builders" для категорії Storage).
-   * Класифікація: система автоматично групує товари залежно від їхнього внеску в прибуток та обсягу продажів, допомагаючи визначити стратегічно важливі позиції.
-
-<img width="542" height="399" alt="Без імені" src="https://github.com/user-attachments/assets/bffa5191-6775-4ee4-b884-204a703d3f2e" />
-
-3. Аналіз впливу знижок (Margin by Discount). Один із найважливіших графіків, що показує пряму залежність прибутковості від дисконтної політики:
-   * Графік наочно демонструє, як маржа стає від’ємною при зростанні знижок. При знижці 80% збитки сягають -180%.
-   * Регіональна деталізація: Через тултіп можна побачити, як знижки впливають на маржу в конкретних регіонах.
-  
-<img width="693" height="479" alt="зображення" src="https://github.com/user-attachments/assets/26d3aeeb-97ac-46f4-9844-0674ccc47ef0" />
-     
-4. Інтерактивні можливості та Drill-down:
-   * Кнопка деталізації (i): кожна KPI-картка має іконку у верхньому правому куті. При натисканні на неї розгортається повноекранний графік Trend Unprofitable Orders (або іншої обраної метрики), де дані можна переглянути у розрізі кварталів, місяців та навіть окремих днів.
-
-<img width="1075" height="600" alt="зображення" src="https://github.com/user-attachments/assets/62971bbc-7585-4467-8415-4e3be969343e" />
-
-   * Регіональний аналіз: візуал Margin by Region and Category дозволяє порівняти прибутковість різних категорій у регіонах.
-   * Динамічні заголовки: як і на Summary, під основною назвою сторінки відображається перелік усіх застосованих фільтрів, що забезпечує точність інтерпретації результатів
-
-#### **3. Оптимізація LTV та юніт-економіки**
-
-*   **Мета:** Аналіз прибутковості клієнтської бази та розробка стратегії стабілізації доходу
-
-Ключові показники:
-* Total Revenue: $481,41K
-* LTV: $9,63K | CAC: $235
-* LTV/CAC Ratio: 41x (висока рентабельність)
-
-Аналіз сегментів та каналів:
-* Returning ($10,7K LTV): Ядро бізнесу, найвищий ROI в каналі Email (до 47%)
-* VIP ($10,5K LTV): Зона ризику; виявлено обвал доходу на 80% (лютий 2025), що вимагає переходу від знижок до ексклюзивного сервісу
-* CRM Push: Найслабша ланка з найнижчим ROI (30–39%)
-
-Стратегічні рішення:
-* Автоматизація Retention: Lifecycle-програми через Email для росту LTV на 20%
-* Оптимізація витрат: Скорочення частоти CRM Push для зниження CAC на 15%
-* Стабілізація VIP: Заміна масових знижок на кешбек та персональні привілеї
-
-**Результат:** сформовано план переходу від «дисконтної залежності» до прогнозованого зростання капіталізації бази.
-   
-<img width="1237" height="687" alt="image" src="https://github.com/user-attachments/assets/3cf520d8-7d65-4c36-ae86-24fdc3ea22b0" />
-
-<img width="1245" height="692" alt="image" src="https://github.com/user-attachments/assets/2b60e34e-4920-4161-93cc-38182cb0791e" />
-
-<img width="1235" height="691" alt="image" src="https://github.com/user-attachments/assets/deececc1-3785-43a4-9a7d-298c8a6b384b" />
-
-      
-#### **4. Аналітичний огляд глобального ринку гірськолижних курортів (Ski Resorts Report)**
-**Мета:** Систематизувати дані про понад 490 гірськолижних курортів світу для порівняння їхньої інфраструктури, цінової політики та сезонної активності.
-**Результат:**
-    *   Розроблено інтерактивну мапу та систему фільтрації для аналізу курортів за складністю трас, типами підйомників та рівнем цін.
-    *   Візуалізовано **сезонні тренди**, що дозволяє відстежувати кількість активних курортів за місяцями та країнами (наприклад, Австрія, Франція).
-    *   Створено порівняльні діаграми висотних точок та середньої вартості скі-пасів (€36,80 – €48,72), що спрощує прийняття рішень для кінцевого користувача.
-
-<img width="799" height="461" alt="image" src="https://github.com/user-attachments/assets/754d87c1-8fd5-4835-8c81-4fe1537692a0" />
-
-<img width="796" height="455" alt="image" src="https://github.com/user-attachments/assets/4de80f69-376b-449c-a431-4bd1ecf026b8" />
-
-<img width="800" height="461" alt="image" src="https://github.com/user-attachments/assets/4e67898d-67ed-4e7b-813e-c8a5b7cfcd42" />
-
-<img width="794" height="459" alt="image" src="https://github.com/user-attachments/assets/21e4dc9e-d1b8-4386-85a6-8ee691c691d2" />
-
-<img width="796" height="461" alt="image" src="https://github.com/user-attachments/assets/60646cd3-023e-4f10-9eb7-285d43f7ac44" />
-
-
-#### **4. Аналіз продажів та управління запасами мережі магазинів (Power BI Toys)**
-
-**Мета:** Оцінити загальну ефективність мережі магазинів, виявити найбільш прибуткові регіони та категорії товарів, а також оптимізувати контроль над залишками на складах.
-**Результат:**
-    *   Створено комплексну систему моніторингу продажів ($14,4 млн) та прибутку ($4 млн) з деталізацією до рівня міст та окремих товарів.
-    *   Впроваджено **аналіз ключових факторів впливу (Key Influencers)**, що дозволило визначити електроніку та товари з високою собівартістю як головні драйвери зростання прибутку.
-    *   Розроблено блок **Inventory Management**, який допоміг відстежувати втрачені продажі ($2 млн) та оцінювати вартість запасів у розрізі міст.
-
+**13. Recommendations**
+1. Monitor the gap between Revenue growth and Profit growth.
+2. Prioritize products with:
+High Margin + High Contribution + Positive Growth
+3. Monitor concentration of Revenue and Profit among Top N products.
