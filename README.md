@@ -145,7 +145,8 @@ Dashboard built on the principle progressive analysis: Business performance → 
 Revenue demonstrates positive YoY growth, while Margin remains under pressure.
 Business implication: Revenue growth should be evaluated together with profitability rather than as an isolated KPI.
 
-<img width="1270" height="709" alt="зображення" src="https://github.com/user-attachments/assets/64426a34-7394-4d4f-af69-7f847209fb87" />
+<img width="1319" height="732" alt="image" src="https://github.com/user-attachments/assets/647b8a86-6e06-4157-bd5f-a8c6089d89fe" />
+
 
 ## 8. Product Performance
 
@@ -171,7 +172,8 @@ Business implication: Revenue growth should be evaluated together with profitabi
 - Art & Crafts is among the leading portfolio contributors.
 - Revenue is concentrated in Low and Middle price segments.
 
-<img width="1276" height="709" alt="зображення" src="https://github.com/user-attachments/assets/4ba13355-85db-435b-9ee1-01247ba4c2f5" />
+<img width="1315" height="732" alt="image" src="https://github.com/user-attachments/assets/4c5d958b-502a-44f9-b37b-388c8384fbfc" />
+
 
 <img width="1259" height="544" alt="зображення" src="https://github.com/user-attachments/assets/52045e30-cc12-4779-bb49-19fd05d09604" />
 
