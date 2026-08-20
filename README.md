@@ -3,11 +3,11 @@
 **1. Project Overview**
 Objective: building an interactive BI solution for monitoring financial and operational business performance at the Business → Product → Store → City level.
 Business goals
-    * monitor Revenue, Profit and Margin;
-    * identify profitability drivers and risks;
-    * evaluate Product Portfolio performance;
-    * identify underperforming cities and stores;
-    * support portfolio and operational decisions.
+    - monitor Revenue, Profit and Margin;
+    - identify profitability drivers and risks;
+    - evaluate Product Portfolio performance;
+    - identify underperforming cities and stores;
+    - support portfolio and operational decisions.
 Source: CSV files
 Transformation: Power Query
 Semantic Model: Power BI / Star Schema
