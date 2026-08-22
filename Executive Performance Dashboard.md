@@ -97,35 +97,35 @@ CSV data passes through Power Query.
 **Principle:** business logic required for reusable analysis is implemented in the semantic model, not duplicated across visuals.
 
 
-The **Executive Summary** page is a central dashboard that provides a strategic overview of the state of the business and allows you to instantly assess KPIs:
+## 5. The **Executive Summary** page is a central dashboard that provides a strategic overview of the state of the business and allows you to instantly assess KPIs:
 
 **Key visuals:**
 
-1. Key Performance Indicators (KPI) Dashboard and Interactivity
+1. Key Performance Indicators (KPI) Dashboard and Interactivity. KPI values ​​are shown as of the latest date from the available data set.
 The page presents four main metrics:
     - Total Revenue: $2,30M (-29,2%).
     - Gross Profit: $286K (+4,5%).
     - Margin, %: 12,5% (+62,4%).
     - Active Customer Base: 793 (+58,8%).
 
-<img width="1268" height="710" alt="зображення" src="https://github.com/user-attachments/assets/ccf30ab8-c3d8-4918-8dec-d6513e5796f1" />
+<img width="1265" height="705" alt="зображення" src="https://github.com/user-attachments/assets/e80574a7-cf44-4536-b1a7-56fb410f721c" />
 
 When you click on any KPI card, all graphs on the page are automatically reorganized, displaying data specifically for the selected metric. Sparklines (mini-graphs) on the cards themselves show dynamics only for the current year.
 
 2. Global Trend Analysis and Drill-down
    * The central visual displays data for all available years, allowing you to track long-term dynamics.
-   * Tooltips: When hovering over the trend graph, an extended tooltip appears, showing the distribution of profit by region and segment, as well as a list of the top 3 customers by margin and the category of goods they buy most often.
+   * Tooltips: when hovering over the trend graph, an extended tooltip appears, showing the distribution of profit by region and segment, as well as a list of the top 3 customers by margin and the category of goods they buy most often.
   
-<img width="693" height="479" alt="зображення" src="https://github.com/user-attachments/assets/704d854f-f1f1-49e2-a6d9-de874963b0c2" />
+<img width="1284" height="463" alt="зображення" src="https://github.com/user-attachments/assets/f0afc228-08e4-4623-9f5c-2960659a0405" />
 
    * Drill down to transactions: In the upper right corner of the visual, there is a button that opens the Financial Performance Matrix. In this matrix, you can drill down from year to specific order date and product name.
 
-<img width="1177" height="660" alt="зображення" src="https://github.com/user-attachments/assets/14df8f5b-65ce-46f6-aa48-6f3d4c113d1f" />
+<img width="1279" height="716" alt="зображення" src="https://github.com/user-attachments/assets/3fdce852-1f5a-4ec2-8a13-8628c3457994" />
 
 3. Regional efficiency and factor analysis
-   * Top 5 Cities: A bar chart shows the cities with the largest contribution to the selected metric. For example, five key cities account for 53.2% of gross profit. The tooltip on this chart shows the dynamics of the metric by day of the week, helping to identify patterns of customer activity.
+   * Top 5 Cities: the bar chart shows the cities with the largest contribution to the selected metric. The tooltip on this chart shows the dynamics of the metric by day of the week, helping to identify patterns of customer activity.
      
- <img width="583" height="607" alt="зображення" src="https://github.com/user-attachments/assets/8d155825-0fe4-40c5-88da-68a7d04c9b10" />
+<img width="1248" height="709" alt="зображення" src="https://github.com/user-attachments/assets/4c37153d-c1e8-4fd8-be84-67028fe56d78" />
 
    * Waterfall Chart (factor analysis): clearly demonstrates which factors influenced the change in profit compared to last year. In particular, a critical insight is visualized: the price decrease led to a loss of 48% of profit.
 
@@ -139,7 +139,8 @@ When you click on any KPI card, all graphs on the page are automatically reorgan
     * Category Development: expand the range of Technology and Office Supplies categories (copiers, phones, accessories).
     * Segmentation: priority on the Consumer segment, which is the most profitable.
     
-The **Margin & Profitability** page is a specialized section of the dashboard designed for in-depth analysis of financial performance and identification of areas of profit loss.
+## 6. The **Margin & Profitability** page is a specialized section of the dashboard designed for in-depth analysis of financial performance and identification of areas of profit loss.
+
 1. KPI Cards
 At the top of the page are four main metrics that provide a quick assessment of the current situation:
     - Margin Leakage (Loss): reflects margin losses, with negative dynamics -80.9%.
@@ -148,20 +149,20 @@ At the top of the page are four main metrics that provide a quick assessment of 
     - Unprofitable Orders: Number of unprofitable orders (1318), яка зросла на 59.2%.
 Unlike the main page, the sparklines on these cards display the trend for all available years.
 
-<img width="1177" height="660" alt="зображення" src="https://github.com/user-attachments/assets/b20b986d-37a0-4101-80b7-be06c193b9fb" />
+<img width="1279" height="714" alt="зображення" src="https://github.com/user-attachments/assets/154c4f74-71d7-4baa-9fd1-dea933356da6" />
 
 2. Product Portfolio Matrix. This scatter plot visual analyzes product subcategories along two axes: total revenue and margin.
    * Tooltips: when you hover over a point (subcategory), detailed information is displayed: sales volume in money and units, margin level, and quadrant name (for example, "Volume Builders" for the Storage category).
    * Classification: the system automatically groups products based on their profit contribution and sales volume, helping to identify strategically important items.
 
-<img width="542" height="399" alt="Без імені" src="https://github.com/user-attachments/assets/bffa5191-6775-4ee4-b884-204a703d3f2e" />
+<img width="568" height="445" alt="зображення" src="https://github.com/user-attachments/assets/d2a626fa-f235-4ff6-bcb1-185ae560d668" />
 
 3. Analysis of the impact of discounts (Margin by Discount). One of the most important graphs showing the direct dependence of profitability on discount policy:
    * The graph clearly shows how the margin becomes negative as discounts increase. At an 80% discount, losses reach -180%.
    * Regional drill-down: tooltip lets you see how discounts affect margins in specific regions.
   
-<img width="693" height="479" alt="зображення" src="https://github.com/user-attachments/assets/26d3aeeb-97ac-46f4-9844-0674ccc47ef0" />
-     
+<img width="725" height="446" alt="зображення" src="https://github.com/user-attachments/assets/bb73520e-a9ac-4e09-8b07-b929ee317898" />
+
 4. Interactive features and Drill-down:
    * Drill-down button (i): Each KPI card has an icon in the top right corner. Clicking it expands a full-screen chart of Trend Unprofitable Orders (or other selected metric), where data can be viewed by quarter, month, and even individual day.
 
